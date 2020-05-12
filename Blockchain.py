@@ -69,7 +69,15 @@ def mine_block():
                 }
     return jsonify(response), 200
 
-#Display the blockchain
+@app.route('/check_validity', methods = ['GET'])
+def validity():
+    is_valid = blockchain.check_validity(blockchain.chain)  
+    if is_valid:
+        response = {'message': 'The chain is valid'}
+    else:
+        response = {'message': 'We have a problem. The blockchain is invalid'}
+    return response
+
 @app.route('/get_chain', methods = ['GET'])
 def get_chain():
     response = {'chain': blockchain.chain,
